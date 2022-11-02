@@ -19,4 +19,3 @@ export class LoadingContainerComponent {
   @Input()
   emptyMessage: string;
 }
-

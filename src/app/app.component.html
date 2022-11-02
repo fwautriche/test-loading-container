@@ -1,4 +1,21 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<p>Test loading container</p>
+
+<app-loading-container
+  errorMessage="Error: Cannot load the data"
+  emptyMessage="No data"
+  [loading]="isDataLoading"
+  [loaded]="isDataLoaded"
+  [error]="isDataLoadingError"
+  [isEmpty]="(isData$ | async) === false"
+>
+  <pre>{{ data$ | async | json }}</pre>
+</app-loading-container>
+
+<!-- <p>TEST</p>
+<p>isDataLoading: {{isDataLoading}}</p>
+<p>isDataLoaded: {{isDataLoaded}}</p>
+<p>isDataLoadingError: {{isDataLoadingError}}</p>
+<p>isData$: {{isData$ | async}}</p>
+<p>data$: {{data$ | async | json}}</p> -->
+
+<input type="button" value="Get Data" (click)="simulateRouteChange()" />
