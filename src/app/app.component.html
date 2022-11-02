@@ -1,15 +1,48 @@
 <p>Test loading container</p>
 
-<app-loading-container
+
+
+
+
+<div>
+  <ng-container *ngIf="isDataLoading">Loading...</ng-container>
+  <!-- <ng-container *ngIf="isDataLoadingError">Error: Cannot load the data</ng-container> -->
+  <ng-container *ngIf="data$ | async as data">
+    <ng-container *ngIf="isDataLoaded">
+      <ng-container *ngIf="data != null; else empty">
+        <pre>{{ data | json }}</pre>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #empty> No data </ng-template>
+</div>
+
+
+<!-- <ng-container *ngIf="data$ | async as data">
+
+  <div *ngIf="isDataLoading">Loading...</div>
+  <div *ngIf="isDataLoadingError">Error: Cannot load the data</div>
+  <ng-container *ngIf="!isDataLoading && !isDataLoadingError">
+    <ng-container *ngIf="isDataLoaded">
+      <ng-container *ngIf="data != null; else empty">
+        <pre>{{ data | json }}</pre>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-template #empty> No data </ng-template>
+
+</ng-container> -->
+
+<!-- <app-loading-container
   errorMessage="Error: Cannot load the data"
   emptyMessage="No data"
-  [loading]="isDataLoading"
-  [loaded]="isDataLoaded"
-  [error]="isDataLoadingError"
-  [isEmpty]="(isData$ | async) === false"
+  [loading]="isDataLoading ?? true"
+  [loaded]="isDataLoaded ?? false"
+  [error]="isDataLoadingError ?? false"
+  [isEmpty]="false"
 >
   <pre>{{ data$ | async | json }}</pre>
-</app-loading-container>
+</app-loading-container> -->
 
 <!-- <p>TEST</p>
 <p>isDataLoading: {{isDataLoading}}</p>
