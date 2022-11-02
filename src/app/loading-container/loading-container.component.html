@@ -1,0 +1,14 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{errorMessage || 'Error'}}</div>
+<ng-container *ngIf="!loading && !error">
+  <ng-container *ngIf="loaded && isEmpty === false else empty">
+    <ng-content></ng-content>
+  </ng-container>
+</ng-container>
+<ng-template #empty>
+  <ng-container *ngIf="emptyMessage">
+    <app-information class="m-2">
+      {{emptyMessage}}
+    </app-information>
+  </ng-container>
+</ng-template>
