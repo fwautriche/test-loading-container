@@ -5,7 +5,6 @@ import {
   delay,
   filter,
   finalize,
-  map,
   shareReplay,
   switchMap,
   takeUntil,

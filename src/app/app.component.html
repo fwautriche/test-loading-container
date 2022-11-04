@@ -1,8 +1,20 @@
-<p>Test loading container</p>
+<p>Test loading</p>
 
-<ng-container *ngIf="isDataLoading">Loading...</ng-container>
-<ng-container *ngIf="data$ | async as data">
+<h3>Test 1</h3>
+<!-- <div *ngIf="data$ | async as data; else loading">
+  <pre>{{ data | json }}</pre>
+</div>
+<ng-template #loading>Loading...</ng-template> -->
+
+<h3>Test 2</h3>
+<ng-container *ngIf="!isDataLoading && data$ | async as data">
   <pre>{{ data | json }}</pre>
 </ng-container>
+<ng-container *ngIf="isDataLoading">Loading...</ng-container>
 
-<input type="button" value="Get Data" (click)="simulateRouteChange()" />
+<br />
+<input
+  type="button"
+  value="Change route to next data"
+  (click)="simulateRouteChange()"
+/>
