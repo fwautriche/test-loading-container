@@ -30,9 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   data$: Observable<MyData>;
   isDataLoading: boolean;
-  isDataLoadingError: boolean;
-  isDataLoaded: boolean;
-  isData$: Observable<boolean>;
 
   private destroySubject = new Subject<void>();
   private destroyed$ = this.destroySubject.asObservable();
@@ -46,17 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.data$ = routeId$.pipe(
       tap(() => {
         this.isDataLoading = true;
-        this.isDataLoadingError = false;
-        this.isDataLoaded = false;
       }),
       switchMap((id) =>
         this.getAsyncData(id).pipe(
           finalize(() => {
             this.isDataLoading = false;
-            this.isDataLoaded = true;
           }),
           catchError((error) => {
-            this.isDataLoadingError = true;
             return of(null);
           }),
           takeUntil(this.destroyed$)
@@ -64,7 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
       ),
       shareReplay()
     );
-    this.isData$ = this.data$.pipe(map((data) => data != null));
   }
 
   ngOnDestroy() {

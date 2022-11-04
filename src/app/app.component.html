@@ -1,29 +1,8 @@
 <p>Test loading container</p>
 
-<!-- Test with plain html -->
 <ng-container *ngIf="isDataLoading">Loading...</ng-container>
-<ng-container *ngIf="isDataLoadingError">
-  Error: Cannot load the data
+<ng-container *ngIf="data$ | async as data">
+  <pre>{{ data | json }}</pre>
 </ng-container>
-<ng-container
-  *ngIf="!isDataLoading && !isDataLoadingError && data$ | async as data"
->
-  <ng-container *ngIf="data != null; else empty">
-    <pre>{{ data | json }}</pre>
-  </ng-container>
-</ng-container>
-<ng-template #empty> No data </ng-template>
-
-<!-- Test with component -->
-<app-loading-container
-  errorMessage="Error: Cannot load the data"
-  emptyMessage="No data"
-  [loading]="isDataLoading"
-  [loaded]="isDataLoaded"
-  [error]="isDataLoadingError"
-  [isEmpty]="false"
->
-  <pre>{{ data$ | async | json }}</pre>
-</app-loading-container>
 
 <input type="button" value="Get Data" (click)="simulateRouteChange()" />
